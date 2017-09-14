@@ -1,7 +1,9 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
 import qualified GHC.IO.Encoding as E
-import           Data.Monoid (mappend)
+import           Text.Pandoc.Options
+import           Data.Monoid ((<>))
+import           Hakyll.Web.Pandoc
 import           Hakyll
 
 --------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ blog = hakyll $ do
 
     match "posts/*" $ do
         route $ setExtension "html"
-        compile $ pandocCompiler
+        compile $ pandocCompilerWith readerOptions writerOptions
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
@@ -26,9 +28,8 @@ blog = hakyll $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    defaultContext
+            let indexCtx = listField "posts" postCtx (return posts)
+                        <> defaultContext
 
             getResourceBody
                 >>= applyAsTemplate indexCtx
@@ -39,9 +40,15 @@ blog = hakyll $ do
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
-postCtx =
-    dateField "date" "%Y-%m-%d" `mappend`
-    defaultContext
+postCtx = dateField "date" "%Y-%m-%d"
+       <> defaultContext
+
+readerOptions :: ReaderOptions
+readerOptions = defaultHakyllReaderOptions
+    { readerExtensions = pandocExtensions <> githubMarkdownExtensions }
+
+writerOptions :: WriterOptions
+writerOptions = defaultHakyllWriterOptions
 
 main :: IO ()
 main = E.setLocaleEncoding E.utf8 >> blog

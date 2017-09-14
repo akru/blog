@@ -1,1 +1,2 @@
-# blog
+## IPFS + Haskell + Web = <3
+
