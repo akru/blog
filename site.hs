@@ -24,6 +24,12 @@ blog = hakyll $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
+    match "cjdns.markdown" $ do
+        route $ setExtension "html"
+        compile $ pandocCompilerWith readerOptions writerOptions
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
+
     match "index.html" $ do
         route idRoute
         compile $ do
