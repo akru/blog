@@ -28,6 +28,7 @@ title: Настраиваем IPFS поверх WiFi-mesh
 # iwconfig wlan1 essid fftlt-ibss
 # iwconfig wlan1 ap 62:C2:3A:86:A6:EE
 # iwconfig wlan1 channel 3
+# modprobe batman_adv
 # batctl if add wlan1
 # ifconfig wlan1 up
 ```
