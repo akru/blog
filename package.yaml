@@ -1,0 +1,16 @@
+name:                blog
+version:             0.2.0.0
+github:              "akru/blog"
+license:             BSD3
+author:              "Alexander Krupenkin"
+maintainer:          "mail@akru.me"
+copyright:           "(c) Alexander Krupenkin"
+
+dependencies:
+- base
+- hakyll
+- pandoc
+
+executables:
+  site:
+    main: src/Main.hs

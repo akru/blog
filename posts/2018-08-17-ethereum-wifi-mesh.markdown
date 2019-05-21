@@ -1,5 +1,7 @@
 ---
-title: Настраиваем Ethereum поверх WiFi-mesh
+title: "Настраиваем Ethereum поверх WiFi-mesh"
+description: Инструкция по настройке частной Ethereum-сети в WiFi-mesh.
+tags: ethereum
 ---
 
 > В продолжение цикла статей о Mesh-сетях попробуем развернуть приватную сеть Ethereum поверх WiFi-mesh. 
